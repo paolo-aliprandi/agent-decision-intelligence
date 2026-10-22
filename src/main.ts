@@ -17,7 +17,7 @@ function applyTheme(theme: "light" | "dark") {
   themeToggle.setAttribute("aria-pressed", String(theme === "dark"));
   themeToggle.title = `Switch to ${theme === "dark" ? "light" : "dark"} mode`;
   required<HTMLMetaElement>('meta[name="theme-color"]').content =
-    theme === "dark" ? "#111b17" : "#244d3e";
+    theme === "dark" ? "#09090b" : "#ffffff";
 }
 
 applyTheme(

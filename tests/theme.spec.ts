@@ -1,6 +1,44 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
+for (const palette of [
+  {
+    theme: "light",
+    background: "rgb(255, 255, 255)",
+    accent: "rgb(32, 86, 216)",
+    button: "rgb(32, 86, 216)",
+  },
+  {
+    theme: "dark",
+    background: "rgb(9, 9, 11)",
+    accent: "rgb(130, 170, 255)",
+    button: "rgb(45, 101, 237)",
+  },
+] as const) {
+  test(`${palette.theme} mode uses neutral surfaces and blue accents`, async ({
+    page,
+  }) => {
+    await page.emulateMedia({ colorScheme: palette.theme });
+    await page.goto("./");
+    await expect(page.locator("html")).toHaveCSS(
+      "background-color",
+      palette.background,
+    );
+    await expect(page.locator("h1 em")).toHaveCSS("color", palette.accent);
+    await expect(page.locator(".hero-actions .button")).toHaveCSS(
+      "background-color",
+      palette.button,
+    );
+    await expect(page.locator(".hero-actions .button")).toHaveCSS(
+      "color",
+      "rgb(255, 255, 255)",
+    );
+    await expect(
+      page.locator('.hero-art path[stroke="var(--accent)"]').first(),
+    ).toHaveCSS("stroke", palette.accent);
+  });
+}
+
 test("uses the system preference until a visitor chooses a theme", async ({
   page,
 }) => {
@@ -35,7 +73,7 @@ test("keyboard toggle persists both themes across reloads", async ({
   await expect(toggle).toHaveAttribute("aria-pressed", "true");
   await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute(
     "content",
-    "#111b17",
+    "#09090b",
   );
   await toggle.click();
   await page.reload();
@@ -45,7 +83,7 @@ test("keyboard toggle persists both themes across reloads", async ({
   );
   await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute(
     "content",
-    "#244d3e",
+    "#ffffff",
   );
 });
 
@@ -61,7 +99,7 @@ test("saved theme applies before the application module runs", async ({
     await page
       .locator("html")
       .evaluate((element) => getComputedStyle(element).backgroundColor),
-  ).toBe("rgb(17, 27, 23)");
+  ).toBe("rgb(9, 9, 11)");
 });
 
 test("storage restrictions warn without breaking theme switching", async ({
@@ -169,7 +207,7 @@ test("system dark appearance remains available without JavaScript", async ({
     await page
       .locator("html")
       .evaluate((element) => getComputedStyle(element).backgroundColor),
-  ).toBe("rgb(17, 27, 23)");
+  ).toBe("rgb(9, 9, 11)");
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   await expect(
     page.getByRole("button", { name: "Dark mode", exact: true }),
