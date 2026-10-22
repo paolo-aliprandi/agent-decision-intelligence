@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#f5f4ed"/>
+  <path d="M70 105h1060M70 550h1060" stroke="#d6dad0"/>
+  <text x="70" y="76" font-family="Arial,sans-serif" font-size="22" fill="#244d3e">adi / AGENT DECISION INTELLIGENCE</text>
+  <text x="70" y="267" font-family="Arial,sans-serif" font-size="100" letter-spacing="-5" fill="#233c32">Great demo.</text>
+  <text x="70" y="390" font-family="Georgia,serif" font-size="116" font-style="italic" letter-spacing="-5" fill="#244d3e">Right agent?</text>
+  <text x="75" y="485" font-family="Arial,sans-serif" font-size="25" fill="#677168">Not another agent. A better way to choose one.</text>
+  <g stroke="#244d3e" fill="none" stroke-width="2"><path d="m820 390 100-180 100 180H820Zm30 0 70-125 70 125M920 210v210M820 390l100-50 100 50"/></g>
+  <circle cx="920" cy="340" r="14" fill="#244d3e"/>
+  <text x="75" y="589" font-family="monospace" font-size="15" fill="#677168">INDEPENDENT EVALUATION / YOUR WORKFLOW. YOUR CONSTRAINTS. YOUR DECISION.</text>
+</svg>
