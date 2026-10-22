@@ -44,6 +44,14 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Check selected Pages publishing mode
+        id: pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mode="$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq .build_type)"
+          echo "mode=$mode" >> "$GITHUB_OUTPUT"
       - name: Deploy to GitHub Pages
+        if: steps.pages.outputs.mode == 'workflow'
         id: deployment
         uses: actions/deploy-pages@v4

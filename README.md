@@ -41,6 +41,10 @@ The pilot form opens a prefilled **public GitHub issue** for the visitor to revi
 
 ## Deployment
 
-The GitHub Actions workflow checks formatting, builds, runs browser/accessibility tests, and deploys to GitHub Pages on successful pushes to `main`. Enable Pages with **GitHub Actions** as the source. `vite.config.ts` sets the repository subpath; change that and the canonical/Open Graph URLs if the site moves to a custom domain.
+The live site is served from the compiled **`gh-pages` branch**, with Pages configured to publish its root directory. To publish an update in this mode, build with `npm run build` and replace that branch's published files with the contents of `dist`, including `.nojekyll`. Pushing source changes to `main` alone does not update a branch-published site.
+
+An alternative GitHub Actions workflow is included: it checks formatting, builds, runs browser/accessibility tests, and deploys on successful pushes to `main`. To use it, first switch the Pages source to **GitHub Actions** and confirm the `Verify and deploy` workflow is registered and enabled. The initial release used branch publishing because GitHub was not registering the new custom workflow.
+
+`vite.config.ts` sets the repository subpath; change that and the canonical/Open Graph URLs if the site moves to a custom domain.
 
 The original strategy document is intentionally not included in this public repository. This site describes a service-led project seeking design partners; it does not claim existing customers, validated results, certifications, or a shipped evaluation platform.
