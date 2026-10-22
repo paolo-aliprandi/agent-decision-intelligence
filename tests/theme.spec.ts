@@ -33,9 +33,14 @@ for (const palette of [
       "color",
       "rgb(255, 255, 255)",
     );
-    await expect(
-      page.locator('.hero-art path[stroke="var(--accent)"]').first(),
-    ).toHaveCSS("stroke", palette.accent);
+    await expect(page.locator(".deployment-plan dd").first()).toHaveCSS(
+      "color",
+      palette.accent,
+    );
+    await expect(page.locator(".evaluation-decision")).toHaveCSS(
+      "border-top-color",
+      palette.accent,
+    );
   });
 }
 

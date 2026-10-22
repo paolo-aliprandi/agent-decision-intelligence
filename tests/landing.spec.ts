@@ -91,6 +91,36 @@ test("hero explains the service and deliverable before scrolling", async ({
   }
 });
 
+test("hero figure explains the workflow, evaluation and deployment decisions", async ({
+  page,
+}) => {
+  const figure = page.getByRole("figure", {
+    name: "From workflow to deployment",
+  });
+  await expect(figure.locator(".evaluation-flow > li")).toHaveCount(3);
+  await expect(
+    figure
+      .getByRole("list", { name: "Candidate agents" })
+      .getByRole("listitem"),
+  ).toHaveText(["Agent A", "Agent B", "Agent C"]);
+  await expect(figure).toContainText(
+    "The same support tickets, rules, and constraints.",
+  );
+  await expect(figure.locator(".evaluation-criteria dt")).toHaveText([
+    "Quality",
+    "Cost",
+    "Risk",
+  ]);
+  await expect(figure.locator(".deployment-plan dd")).toHaveText([
+    "Automate",
+    "Human review",
+    "Keep manual",
+  ]);
+  await expect(figure).toContainText(
+    "Support triage example only. Actual recommendations depend on your evaluation.",
+  );
+});
+
 test("has no horizontal overflow at representative viewport widths", async ({
   page,
 }) => {
@@ -274,15 +304,16 @@ test("page and pilot dialog pass automated WCAG AA accessibility checks", async 
   expect(dialogResults.violations).toEqual([]);
 });
 
-test("reduced motion disables the illustration animation and smooth scrolling", async ({
+test("reduced motion disables transitions and smooth scrolling", async ({
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   expect(
     await page
-      .locator(".flow-path")
-      .evaluate((element) => getComputedStyle(element).animationName),
-  ).toBe("none");
+      .locator(".hero-actions .arrow")
+      .first()
+      .evaluate((element) => getComputedStyle(element).transitionDuration),
+  ).toBe("0s");
   expect(
     await page
       .locator("html")
@@ -298,6 +329,9 @@ test("core story and enquiry remain available without JavaScript", async ({
   const noJSPage = await context.newPage();
   await noJSPage.goto(baseURL!);
   await expect(noJSPage.getByRole("heading", { level: 1 })).toBeVisible();
+  await expect(
+    noJSPage.getByRole("figure", { name: "From workflow to deployment" }),
+  ).toBeVisible();
   await expect(
     noJSPage.getByRole("heading", { name: "Not all failures cost the same." }),
   ).toBeVisible();

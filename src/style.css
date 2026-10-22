@@ -349,88 +349,120 @@ h1 em {
   color: var(--ink);
   font-weight: 500;
 }
-.hero-art {
-  --art-grid: light-dark(#b3c4e6, #465c88);
-  --art-secondary: light-dark(#728ab7, #7494d0);
-  --art-marker: light-dark(#536f9f, #82aaff);
-  --art-label: light-dark(#294575, #c3d5ff);
-  position: relative;
+.hero-figure {
+  margin: 0;
   min-width: 0;
-  padding: 6px 0 16px;
+  border-block: 1px solid var(--line);
 }
-.hero-art #dots circle {
-  fill: light-dark(#bacced, #516a98);
-}
-.hero-art #lens stop:first-child {
-  stop-color: light-dark(#e4edff, #244b91);
-}
-.hero-art #lens stop:last-child {
-  stop-color: light-dark(#a9bfe9, #111e3b);
-}
-.art-labels {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
-  color: var(--muted);
-  font: 9px var(--mono);
-  letter-spacing: 0.07em;
-}
-.art-canvas {
-  position: relative;
-}
-.art-canvas::before {
-  content: "";
-  position: absolute;
-  inset: 4% 1%;
-  border-radius: 50%;
-  background: radial-gradient(ellipse, #7ca4ff18, transparent 67%);
-  pointer-events: none;
-}
-.hero-art svg {
-  overflow: visible;
-}
-.flow-path {
-  stroke-dasharray: 4 7;
-  animation: flow 30s linear infinite;
-}
-@keyframes flow {
-  to {
-    stroke-dashoffset: -220;
-  }
-}
-.outcome-stamp {
-  position: absolute;
-  right: 7%;
-  top: 69%;
-  padding: 14px 18px;
-  border: 1px solid light-dark(#bdccec, #3d527d);
-  background: light-dark(#f7faff, #121b2d);
-  transform: rotate(-5deg);
-  box-shadow: 5px 6px 0 light-dark(#e8eefb, #050609);
-}
-.outcome-stamp span {
-  font: 9px var(--mono);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-.outcome-stamp strong {
-  display: block;
-  margin-top: 6px;
-  font-size: 17px;
-  font-weight: 500;
-}
-.art-footer {
+.hero-figure figcaption {
   display: flex;
   align-items: center;
-  gap: 9px;
-  font: 9px var(--mono);
-  color: var(--muted);
-  margin-top: 15px;
+  gap: 20px;
+  padding: 17px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 12px;
 }
-.art-footer::before {
-  content: "+";
-  font-size: 18px;
+.hero-figure figcaption > span {
+  color: var(--muted);
+  font: 10px var(--mono);
+  white-space: nowrap;
+}
+.evaluation-flow {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.evaluation-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 35px minmax(0, 1fr);
+  gap: 14px;
+  padding: 21px 0;
+}
+.evaluation-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 44px;
+  bottom: -9px;
+  border-left: 1px solid var(--line);
+}
+.evaluation-number {
+  padding-top: 4px;
   color: var(--accent);
+  font: 11px/1.5 var(--mono);
+}
+.evaluation-title {
+  display: block;
+  font-size: clamp(16px, 1.5vw, 20px);
+  line-height: 1.3;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+.evaluation-step p {
+  margin-top: 7px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.candidate-agents {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+}
+.candidate-agents li {
+  flex: 1;
+  padding: 9px 4px;
+  border: 1px solid var(--line);
+  text-align: center;
+  font: 11px var(--mono);
+}
+.evaluation-criteria {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 15px 0 0;
+}
+.evaluation-criteria > div {
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+.evaluation-criteria dt {
+  font-size: 13px;
+  color: var(--accent);
+}
+.evaluation-criteria dd {
+  margin: 5px 0 0;
+  font-size: 11px;
+  color: var(--muted);
+}
+.evaluation-decision {
+  border-top: 1px solid var(--accent);
+}
+.deployment-plan {
+  margin: 12px 0 0;
+}
+.deployment-plan > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 12px;
+}
+.deployment-plan dt {
+  color: var(--muted);
+}
+.deployment-plan dd {
+  margin: 0;
+  color: var(--accent);
+}
+.figure-note {
+  padding: 0 0 17px 49px;
+  font-size: 11px;
+  color: var(--muted);
 }
 .hero-bottom {
   display: flex;
@@ -1354,21 +1386,9 @@ body:has(.pilot-dialog[open]) {
   .hero-caption {
     margin-top: 18px;
   }
-  .hero-art {
+  .hero-figure {
     width: min(500px, 100%);
     margin: auto;
-  }
-  .art-labels {
-    margin-bottom: 0;
-  }
-  .art-footer {
-    margin-top: 0;
-  }
-  .outcome-stamp {
-    padding: 10px 13px;
-  }
-  .outcome-stamp strong {
-    font-size: 15px;
   }
   .hero-bottom {
     padding-block: 17px;

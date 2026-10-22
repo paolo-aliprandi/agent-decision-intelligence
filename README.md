@@ -28,7 +28,7 @@ The browser tests cover desktop/mobile layout, keyboard navigation, the scroll n
 
 ## Design and implementation
 
-- Black-and-blue dark mode, white-and-blue light mode, editorial typography, and an original layered SVG evaluation illustration.
+- Black-and-blue dark mode, white-and-blue light mode, editorial typography, and a semantic workflow-to-deployment figure. An explicitly illustrative support-triage example shows candidate agents, evaluation criteria, and automation/review/manual boundaries, without fabricated performance results.
 - System-aware light/dark themes with a keyboard-accessible header toggle. A chosen theme is saved locally under `adi-theme` and applied before paint; blocked storage does not prevent switching. The illustration, reports, calculator, and enquiry dialog all adapt to the theme.
 - Desktop sticky scrollytelling with explicit stage buttons; a linear narrative and the same controls on mobile.
 - Accessible native dialog, range input, progressive static HTML, and reduced-motion support.
