@@ -8,6 +8,41 @@ function required<T extends Element>(selector: string): T {
   return element;
 }
 
+const themeToggle = required<HTMLButtonElement>(".theme-toggle");
+const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
+let followsSystemTheme = !document.documentElement.hasAttribute("data-theme");
+
+function applyTheme(theme: "light" | "dark") {
+  document.documentElement.dataset.theme = theme;
+  themeToggle.setAttribute("aria-pressed", String(theme === "dark"));
+  themeToggle.title = `Switch to ${theme === "dark" ? "light" : "dark"} mode`;
+  required<HTMLMetaElement>('meta[name="theme-color"]').content =
+    theme === "dark" ? "#111b17" : "#244d3e";
+}
+
+applyTheme(
+  document.documentElement.dataset.theme === "dark" ||
+    (followsSystemTheme && systemTheme.matches)
+    ? "dark"
+    : "light",
+);
+themeToggle.hidden = false;
+themeToggle.addEventListener("click", () => {
+  const theme =
+    document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+  followsSystemTheme = false;
+  applyTheme(theme);
+  try {
+    localStorage.setItem("adi-theme", theme);
+  } catch (error) {
+    if (!(error instanceof DOMException)) throw error;
+    console.warn("Unable to save theme preference:", error.name);
+  }
+});
+systemTheme.addEventListener("change", (event) => {
+  if (followsSystemTheme) applyTheme(event.matches ? "dark" : "light");
+});
+
 const menuToggle = required<HTMLButtonElement>(".menu-toggle");
 const mobileNav = required<HTMLElement>("#mobile-nav");
 function closeMenu() {
