@@ -52,7 +52,7 @@ test("loads with local assets, honest positioning and no runtime errors", async 
   await page.evaluate(() => document.fonts.ready);
   await expect(page).toHaveTitle("ADI — Agent Decision Intelligence");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "Great demo.Right agent?",
+    "Know which agent to deploy. And where to keep a human.",
   );
   await expect(page.getByText("Seeking design partners")).toBeVisible();
   await expect(
@@ -63,6 +63,32 @@ test("loads with local assets, honest positioning and no runtime errors", async 
   expect(errors).toEqual([]);
   expect(failures).toEqual([]);
   expect(externalRequests).toEqual([]);
+});
+
+test("hero explains the service and deliverable before scrolling", async ({
+  page,
+}) => {
+  for (const viewport of [
+    { width: 1280, height: 800 },
+    { width: 390, height: 844 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.evaluate(() => document.fonts.ready);
+    await expect(page.locator(".hero-copy > p")).toContainText(
+      "We compare AI agents on your real workflows",
+    );
+    await expect(page.locator(".hero-caption")).toContainText(
+      "a comparative evaluation and a deployment recommendation",
+    );
+    const action = page.getByRole("link", {
+      name: "Explore an evaluation pilot",
+      exact: true,
+    });
+    const bounds = await action.boundingBox();
+    expect(bounds).not.toBeNull();
+    expect(bounds!.y).toBeGreaterThan(0);
+    expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(viewport.height);
+  }
 });
 
 test("has no horizontal overflow at representative viewport widths", async ({
