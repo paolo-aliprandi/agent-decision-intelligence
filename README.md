@@ -1,5 +1,7 @@
 # ADI — Agent Decision Intelligence
 
+**Live site:** [paolo-aliprandi.github.io/agent-decision-intelligence](https://paolo-aliprandi.github.io/agent-decision-intelligence/)
+
 A deliberately editorial landing page for an early-stage, independent agent-evaluation project. The product idea: help teams choose agents for a specific workflow using evidence about outcomes, cost, risk, and oversight—not a universal leaderboard.
 
 ## Develop
